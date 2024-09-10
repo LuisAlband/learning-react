@@ -75,6 +75,9 @@ function App() {
     //Cambiamos el turno
     setTurn(newTurn)
 
+    //Guardar partida en el localStorage
+    saveGameToStorage({board: newBoard,turn: newTurn})
+
     //Revisamos ganador
     const newWinner = checkWinner(newBoard)  
     if(newWinner){
@@ -91,11 +94,6 @@ function App() {
   useEffect(() => {
     console.log('useEffect')
   }, [winner])
-
-  useEffect(() => {
-     //Guardar partida en el localStorage
-     saveGameToStorage({board: newBoard,turn: newTurn})
-  }, [board, turn])
 
   return (
     <main className='board'>
