@@ -43,6 +43,10 @@ const SeguirRaton = () => {
 return(
   <>
     <Circle able={seguir} positionx = {position.x} positiony = {position.y}></Circle>
+    {/*<Circle able={seguir} positionx = {position.x+100} positiony = {position.y+100}></Circle>
+    <Circle able={seguir} positionx = {position.x-100} positiony = {position.y-100}></Circle>
+    <Circle able={seguir} positionx = {position.x-100} positiony = {position.y+100}></Circle>
+    <Circle able={seguir} positionx = {position.x+100} positiony = {position.y-100}></Circle>*/}
     <h3>Proyecto de seguir el raton</h3>
     <button onClick={() => setSeguir(!seguir)}>
       {seguir ? 'Desactivar' : 'Activar'} seguimiento del puntero
