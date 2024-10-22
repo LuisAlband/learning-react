@@ -1,4 +1,4 @@
-import { useState,useRef, useMemo } from 'react'
+import { useState,useRef, useMemo, useCallback } from 'react'
 import { searchMovies } from '../services/searchMovies'
 
 export function useMovies({search, sort}) {
@@ -9,7 +9,7 @@ export function useMovies({search, sort}) {
 
   const previusSearch = useRef(search)
 
-  const getMovies = async () => {
+  const getMovies = useCallback(async ({ search }) => {
     if(search == previusSearch.current){
       console.log("Ya esta buscado")
       return
@@ -25,8 +25,7 @@ export function useMovies({search, sort}) {
     }finally{
       setLoading(false)
     }
-    
-  }
+  }, [])
 
   const sortedMovies = useMemo(() => {
     return sort

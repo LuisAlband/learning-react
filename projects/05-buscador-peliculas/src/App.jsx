@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import './App.css'
 import{ Movies } from './components/Movies.jsx'
 import { useMovies } from './hooks/useMovies.js'
-
+import debounce from 'just-debounce-it'
 
  function useSearch () {
   //Valor del formulario
@@ -44,12 +44,18 @@ function App() {
   //Formulario NO contolado
   const handleSubmit = (event) => {
     event.preventDefault()
-    getMovies()
+    getMovies({ search })
   }
 
   const handleSort = () => {
     setSort(!sort)
-  }
+  } 
+
+  const debouncedGetMovies = useCallback( 
+    debounce(search =>{
+      getMovies({ search })
+    },500)
+  , [getMovies])
 
   //Formulario controlado
   const handleChange = (event) => {
@@ -57,7 +63,9 @@ function App() {
     //Prevalidacion
     if(newQuery.startsWith(' ')) return
     //console.log(updateSearch)
-    updateSearch(event.target.value)
+    updateSearch(newQuery)
+
+    debouncedGetMovies( newQuery )
     
   }
 
